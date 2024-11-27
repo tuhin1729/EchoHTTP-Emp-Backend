@@ -13,7 +13,7 @@ import random
 app = Flask(__name__)
 app.secret_key = random.randint(536804,78213213765)
 CORS(app)
-ip = "13.127.42.65"
+ip = "127.0.0.1"
 
 with open('private_key.pem', 'rb') as key_file:
 	private_key = key_file.read()
@@ -32,7 +32,7 @@ def home():
 def auth():
 	username = request.form['username']
 	password = request.form['password']
-	if username == "user" and password == "@_P@ssw0rd_1729":
+	if username == "user" and password == "p123":
 		encoded = jwt.encode({"username": f"{username}"}, private_key, algorithm="RS256", headers={"kid": "1729", "jku": f"http://{ip}:8080/.well-known/jwk.json"})
 	else:
 		return "Invalid Username/Password!"
